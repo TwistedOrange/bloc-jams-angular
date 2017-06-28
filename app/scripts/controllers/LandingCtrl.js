@@ -1,6 +1,7 @@
 (function() {
   function LandingCtrl() {
-
+    // heroTitle now avail in $scope object
+    this.heroTitle = "Turn the Music Up!";
   }
 
   angular
