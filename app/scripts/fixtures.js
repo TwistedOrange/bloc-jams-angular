@@ -1,4 +1,4 @@
-var albumPicasso_OLD = {
+var albumPicasso = {
   title: 'The Colors',
   artist: 'Pablo Picasso',
   label: 'Cubism',
@@ -15,7 +15,7 @@ var albumPicasso_OLD = {
 
 
 // source: http://www.barbneal.com/the-collection/tv-theme-songs/
-var albumPicasso = {
+var album70Themes = {
   title: "70's TV Theme Songs",
   artist: 'Various Artists',
   label: '',
