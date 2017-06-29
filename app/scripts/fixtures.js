@@ -16,7 +16,7 @@ var albumPicasso = {
 
 // source: http://www.barbneal.com/the-collection/tv-theme-songs/
 var album70Themes = {
-  title: "70's TV Theme Songs",
+  title: "Best of 70's TV",
   artist: 'Various Artists',
   label: '',
   year: '1973-1978',
