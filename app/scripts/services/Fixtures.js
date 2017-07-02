@@ -42,6 +42,11 @@
       return album70Themes;
     };
 
+    Fixtures.getCollection = function(numberOfAlbums) {
+      var album = getAlbum();
+      return album.slice(numberOfAlbums);
+    };
+
     return Fixtures;
   }
 
