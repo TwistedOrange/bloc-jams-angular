@@ -1,6 +1,6 @@
 (function() {
   function Fixtures() {
-    var Fixtures = {};
+    var Fixtures = {};      // why empty?
 
     // from original fixtures.js file
     // album definition objects, pulls album data into the application
@@ -43,8 +43,14 @@
     };
 
     Fixtures.getCollection = function(numberOfAlbums) {
-      var album = getAlbum();
-      return album.slice(numberOfAlbums);
+      var collection = [];
+
+      // for testing only
+      collection.push(getAlbum);
+      collection.push(getAlbum);
+      collection.push(getAlbum);
+      //return getAlbum.slice(numberOfAlbums);
+      return collection;
     };
 
     return Fixtures;
