@@ -1,7 +1,5 @@
 (function() {
   function Fixtures() {
-    var Fixtures = {};      // why empty?
-
     // from original fixtures.js file
     // album definition objects, pulls album data into the application
     var albumPicasso = {
@@ -37,23 +35,28 @@
       ]
     };
 
-    // expose album data to controllers
-    Fixtures.getAlbum = function() {
+    // methods and properties related to album data
+    var getAlbum = function() {
       return album70Themes;
     };
 
-    Fixtures.getCollection = function(numberOfAlbums) {
+    var getCollection = function(numberOfAlbums) {
       var collection = [];
 
-      // for testing only
-      collection.push(getAlbum);
-      collection.push(getAlbum);
-      collection.push(getAlbum);
-      //return getAlbum.slice(numberOfAlbums);
+      for (var x=0; x<numberOfAlbums; x++) {
+        collection.push(getAlbum());
+      }
+      
       return collection;
     };
 
-    return Fixtures;
+    // expose these methods and properties
+    var Public_API = {
+      getAlbum : getAlbum,
+      getCollection: getCollection
+    }
+
+    return Public_API;
   }
 
   angular

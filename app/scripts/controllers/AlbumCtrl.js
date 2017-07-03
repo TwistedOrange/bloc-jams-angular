@@ -1,8 +1,4 @@
 (function() {
-  // function AlbumCtrl($scope) {
-  //   $scope.albumData = album70Themes;
-  //   // this.albumData = album70Themes;
-  // }
   function AlbumCtrl(Fixtures) {
     this.albumData = Fixtures.getAlbum();
   }
