@@ -37,16 +37,34 @@
       ]
     };
 
-    // expose album data to controllers
+    // methods and properties related to album data
     Fixtures.getAlbum = function() {
       return album70Themes;
     };
 
+    Fixtures.getCollection = function(numberOfAlbums) {
+      var collection = [];
+
+      for (var x=0; x<numberOfAlbums; x++) {
+        // collection.push(getAlbum());
+        collection.push(Fixtures.getAlbum());
+      }
+      return collection;
+    };
+
+    // expose these service methods and properties to the app
+    // var Public_API = {
+    //   getAlbum: getAlbum,
+    //   getCollection: getCollection
+    // }
+    //
+    // return Public_API;
     return Fixtures;
+
   }
 
   angular
     .module('blocJams')
-    // service type = factory
+    // register a service of type 'factory' named Fixtures
     .factory('Fixtures', Fixtures);
 })();
