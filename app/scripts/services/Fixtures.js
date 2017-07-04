@@ -38,27 +38,31 @@
     };
 
     // methods and properties related to album data
-    Fixtures.getAlbum = function() {
-      return album70Themes;
-    };
-
-    Fixtures.getCollection = function(numberOfAlbums) {
-      var collection = [];
-
-      for (var x=0; x<numberOfAlbums; x++) {
-        // collection.push(getAlbum());
-        collection.push(Fixtures.getAlbum());
-      }
-      return collection;
-    };
-
-    // expose these service methods and properties to the app
+    // var getAlbum = function() {
+    //   return album70Themes;
+    // };
+    //
+    // var getCollection = function(numberOfAlbums) {
+    //   var collection = [];
+    //
+    //   for (var x=0; x<numberOfAlbums; x++) {
+    //     collection.push(Fixtures.getAlbum());
+    //   }
+    //   return collection;
+    // };
+    //
+    // // expose these service methods and properties to the app
     // var Public_API = {
     //   getAlbum: getAlbum,
     //   getCollection: getCollection
     // }
     //
     // return Public_API;
+
+    Fixtures.getAlbum = function() {
+      return album70Themes;
+    }
+    
     return Fixtures;
 
   }
