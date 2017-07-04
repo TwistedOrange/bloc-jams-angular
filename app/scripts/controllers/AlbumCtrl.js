@@ -3,6 +3,11 @@
     this.albumData = Fixtures.getAlbum();
   }
 
+  // function AlbumCtrl($scope) {    // from ckpt5-assignment - working
+  //   $scope.albumData = album70Themes;
+  //   // this.albumData = album70Themes;
+  // }
+
   angular
     .module('blocJams')
     // add service recipe Fixtures as a dependency to access its data

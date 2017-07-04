@@ -46,13 +46,13 @@
       for (var x=0; x<numberOfAlbums; x++) {
         collection.push(getAlbum());
       }
-      
+
       return collection;
     };
 
     // expose these methods and properties
     var Public_API = {
-      getAlbum : getAlbum,
+      getAlbum: getAlbum,
       getCollection: getCollection
     }
 
