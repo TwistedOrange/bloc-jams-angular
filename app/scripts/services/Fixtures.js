@@ -36,6 +36,7 @@
     };
 
     // methods and properties related to album data
+<<<<<<< HEAD
     var getAlbum = function() {
       return album70Themes;
     };
@@ -57,10 +58,39 @@
     }
 
     return Public_API;
+=======
+    // var getAlbum = function() {
+    //   return album70Themes;
+    // };
+    //
+    // var getCollection = function(numberOfAlbums) {
+    //   var collection = [];
+    //
+    //   for (var x=0; x<numberOfAlbums; x++) {
+    //     collection.push(Fixtures.getAlbum());
+    //   }
+    //   return collection;
+    // };
+    //
+    // // expose these service methods and properties to the app
+    // var Public_API = {
+    //   getAlbum: getAlbum,
+    //   getCollection: getCollection
+    // }
+    //
+    // return Public_API;
+
+    Fixtures.getAlbum = function() {
+      return album70Themes;
+    }
+    
+    return Fixtures;
+
+>>>>>>> ckpt6-services1
   }
 
   angular
     .module('blocJams')
-    // service type = factory
+    // register a service of type 'factory' named Fixtures
     .factory('Fixtures', Fixtures);
 })();
