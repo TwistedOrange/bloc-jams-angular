@@ -24,16 +24,16 @@
       title: "Best of 70's TV",
       artist: 'Various Artists',
       label: '',
-      year: '1973-1978',
+      year: '1972-1978',
       albumArtUrl: '/assets/images/album_covers/70s-cover.jpg',
       songs: [
         { title: 'Green Acres', duration: 63.56, audioUrl: '/assets/music/grnacres' },
         { title: 'Andy Griffith Show', duration: 50.22, audioUrl: '/assets/music/andgrif' },
         { title: 'Cheers', duration: 62.56, audioUrl: '/assets/music/cheers' },
         { title: "Gilligan's Island", duration: 90.91, audioUrl: '/assets/music/gilligan' },
-        { title: 'Batman', duration: 43.27, audioUrl: '/assets/music/batman' },
-        { title: 'Flintstones', duration: 43.27, audioUrl: '/assets/music/fstones' },
-        { title: 'I Dream of Jeannie', duration: 43.27, audioUrl: '/assets/music/jeannie' }
+        { title: 'Batman', duration: 99.99, audioUrl: '/assets/music/batman' },
+        { title: 'Flintstones', duration: 99.99, audioUrl: '/assets/music/fstones' },
+        { title: 'I Dream of Jeannie', duration: 99.99, audioUrl: '/assets/music/jeannie' }
       ]
     };
 
@@ -42,15 +42,15 @@
     //   return album70Themes;
     // };
     //
-    // var getCollection = function(numberOfAlbums) {
-    //   var collection = [];
-    //
-    //   for (var x=0; x<numberOfAlbums; x++) {
-    //     collection.push(Fixtures.getAlbum());
-    //   }
-    //   return collection;
-    // };
-    //
+    Fixtures.getCollection = function(numberOfAlbums) {
+      var collection = [];
+
+      for (var x=0; x<numberOfAlbums; x++) {
+        collection.push(Fixtures.getAlbum());
+      }
+      return collection;
+    };
+
     // // expose these service methods and properties to the app
     // var Public_API = {
     //   getAlbum: getAlbum,
@@ -62,7 +62,7 @@
     Fixtures.getAlbum = function() {
       return album70Themes;
     }
-    
+
     return Fixtures;
 
   }
