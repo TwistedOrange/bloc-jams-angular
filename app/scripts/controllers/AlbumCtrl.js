@@ -1,12 +1,7 @@
 (function() {
   function AlbumCtrl(Fixtures) {
-    this.albumData = Fixtures.getAlbum();
+    this.albums = Fixtures.getAlbum();
   }
-
-  // function AlbumCtrl($scope) {    // from ckpt5-assignment - working
-  //   $scope.albumData = album70Themes;
-  //   // this.albumData = album70Themes;
-  // }
 
   angular
     .module('blocJams')

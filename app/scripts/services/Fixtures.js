@@ -36,7 +36,10 @@
     };
 
     // methods and properties related to album data
-<<<<<<< HEAD
+    // Fixtures.getAlbum = function() {
+    //   return album70Themes;
+    // }
+
     var getAlbum = function() {
       return album70Themes;
     };
@@ -51,28 +54,7 @@
       return collection;
     };
 
-    // expose these methods and properties
-    var Public_API = {
-      getAlbum: getAlbum,
-      getCollection: getCollection
-    }
-
-    return Public_API;
-=======
-    // var getAlbum = function() {
-    //   return album70Themes;
-    // };
-    //
-    // var getCollection = function(numberOfAlbums) {
-    //   var collection = [];
-    //
-    //   for (var x=0; x<numberOfAlbums; x++) {
-    //     collection.push(Fixtures.getAlbum());
-    //   }
-    //   return collection;
-    // };
-    //
-    // // expose these service methods and properties to the app
+    // // expose these methods and properties
     // var Public_API = {
     //   getAlbum: getAlbum,
     //   getCollection: getCollection
@@ -80,13 +62,12 @@
     //
     // return Public_API;
 
-    Fixtures.getAlbum = function() {
-      return album70Themes;
-    }
-    
-    return Fixtures;
+    Fixtures = {
+      getAlbum,
+      getCollection
+    };
 
->>>>>>> ckpt6-services1
+    return Fixtures;
   }
 
   angular
