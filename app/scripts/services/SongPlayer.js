@@ -1,9 +1,20 @@
 (function() {
   function SongPlayer() {
-    var SongPlayer_API = {};
+    var play = function(song) {
+      var currentBuzzObject = new buzz.sound(song.audioUrl, {
+        formats: ['mp3'],
+        preload: true
+      });
 
-    
-    return SongPlayer;
+      currentBuzzObject.play();
+    };
+
+    // expose these methods and properties
+    var SongPlayer_API = {
+      play: play
+    };
+
+    return SongPlayer_API;
   }
 
    angular

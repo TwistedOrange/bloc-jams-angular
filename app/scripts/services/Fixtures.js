@@ -1,7 +1,6 @@
 (function() {
   function Fixtures() {
-    // from original fixtures.js file
-    // album definition objects, pulls album data into the application
+  
     var albumPicasso = {
       title: 'The Colors',
       artist: 'Pablo Picasso',
@@ -51,12 +50,12 @@
     };
 
     // expose these methods and properties
-    var Public_API = {
+    var Fixture_API = {
       getAlbum: getAlbum,
       getCollection: getCollection
     }
 
-    return Public_API;
+    return Fixture_API;
   }
 
   angular

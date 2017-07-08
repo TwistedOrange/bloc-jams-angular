@@ -6,7 +6,6 @@
 
   angular
     .module('blocJams')
-    // add service recipe Fixtures as a dependency to access its data
     .controller('CollectionCtrl', ['Fixtures', CollectionCtrl] );
-    //.factory('Fixtures', Fixtures);   // DELETED - is redundant
+
 })();
