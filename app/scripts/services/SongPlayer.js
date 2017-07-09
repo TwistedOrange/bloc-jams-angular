@@ -5,11 +5,11 @@
         formats: ['mp3'],
         preload: true
       });
-
+console.log('in SongPlayer constructor, before play()');
       currentBuzzObject.play();
     };
 
-    // expose these methods and properties
+    // expose methods and properties
     var SongPlayer_API = {
       play: play
     };

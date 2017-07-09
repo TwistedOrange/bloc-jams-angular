@@ -1,6 +1,6 @@
 (function() {
   function Fixtures() {
-  
+
     var albumPicasso = {
       title: 'The Colors',
       artist: 'Pablo Picasso',
@@ -28,9 +28,9 @@
         { title: 'Andy Griffith Show', duration: 50.22, audioUrl: '/assets/music/andgrif' },
         { title: 'Cheers', duration: 62.56, audioUrl: '/assets/music/cheers' },
         { title: "Gilligan's Island", duration: 90.91, audioUrl: '/assets/music/gilligan' },
-        { title: 'Batman', duration: 43.27, audioUrl: '/assets/music/batman' },
-        { title: 'Flintstones', duration: 43.27, audioUrl: '/assets/music/fstones' },
-        { title: 'I Dream of Jeannie', duration: 43.27, audioUrl: '/assets/music/jeannie' }
+        { title: 'Batman', duration: 55.55, audioUrl: '/assets/music/batman' },
+        { title: 'Flintstones', duration: 55.55, audioUrl: '/assets/music/flintstones' },
+        { title: 'I Dream of Jeannie', duration: 55.55, audioUrl: '/assets/music/jeannie' }
       ]
     };
 
