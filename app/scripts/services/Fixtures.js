@@ -1,7 +1,6 @@
 (function() {
   function Fixtures() {
-    // from original fixtures.js file
-    // album definition objects, pulls album data into the application
+
     var albumPicasso = {
       title: 'The Colors',
       artist: 'Pablo Picasso',
@@ -22,24 +21,20 @@
       title: "Best of 70's TV",
       artist: 'Various Artists',
       label: '',
-      year: '1973-1978',
+      year: '1972-1978',
       albumArtUrl: '/assets/images/album_covers/70s-cover.jpg',
       songs: [
         { title: 'Green Acres', duration: 63.56, audioUrl: '/assets/music/grnacres' },
-        { title: 'Andy Griffith Show', duration: 50.22, audioUrl: '/assets/music/andgrif' },
+        { title: 'Taxi', duration: 55.55, audioUrl: '/assets/music/taxi' },
         { title: 'Cheers', duration: 62.56, audioUrl: '/assets/music/cheers' },
         { title: "Gilligan's Island", duration: 90.91, audioUrl: '/assets/music/gilligan' },
-        { title: 'Batman', duration: 43.27, audioUrl: '/assets/music/batman' },
-        { title: 'Flintstones', duration: 43.27, audioUrl: '/assets/music/fstones' },
-        { title: 'I Dream of Jeannie', duration: 43.27, audioUrl: '/assets/music/jeannie' }
+        { title: 'Batman', duration: 55.55, audioUrl: '/assets/music/batman' },
+        { title: 'Flintstones', duration: 55.55, audioUrl: '/assets/music/flintstones' },
+        //{ title: 'I Dream of Jeannie', duration: 55.55, audioUrl: '/assets/music/jeannie' }
       ]
     };
 
     // methods and properties related to album data
-    // Fixtures.getAlbum = function() {
-    //   return album70Themes;
-    // }
-
     var getAlbum = function() {
       return album70Themes;
     };
@@ -54,20 +49,13 @@
       return collection;
     };
 
-    // // expose these methods and properties
-    // var Public_API = {
-    //   getAlbum: getAlbum,
-    //   getCollection: getCollection
-    // }
-    //
-    // return Public_API;
+    // expose these methods and properties
+    var Fixture_API = {
+      getAlbum: getAlbum,
+      getCollection: getCollection
+    }
 
-    Fixtures = {
-      getAlbum,
-      getCollection
-    };
-
-    return Fixtures;
+    return Fixture_API;
   }
 
   angular
