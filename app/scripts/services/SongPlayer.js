@@ -1,20 +1,33 @@
 (function() {
+  /**
+   * SongPlayer service manages playing, pausing a song, and tracks its state
+   * @constructor
+   */
   function SongPlayer() {
+
+    /**
+     * @desc Holds status of current song (null, paused, playing, hovered)
+     * @type {Object}
+     */
+    var currentSong = null;
+
     /**
      * @desc Buzz object audio file
      * @type {Object}
-     */
-    var currentSong = null;         // obj or variable?
-    var currentBuzzObject = null;
+     */var currentBuzzObject = null;
 
+    /**
+     * @function play (public)
+     * @desc Plays selected song, and set its playing state to false which
+     * impacts how it's displayed to the user
+     * @param  {Object} song [one song in array of album object]
+     */
     var play = function(song) {
       // test if a selected song is the one now playing
       if ( currentSong !== song ) {
           setSong(song);
-          currentBuzzObject.play();
-          song.playing = true;
+          playSong(song);
       } else if ( currentSong === song ) {
-        console.log('same song');
         // yes, selected song is chosen, if it's paused, play it
         if ( currentBuzzObject.isPaused() ) {
           currentBuzzObject.play();
@@ -22,16 +35,33 @@
       }
     };
 
+    /**
+     * @function pause (public)
+     * @desc Pauses current song, and set its playing state to false which
+     * impacts how it's displayed to the user
+     * @param  {Object} song [one song in album object array]
+     */
     var pause = function(song) {
       currentBuzzObject.pause();
       song.playing = false;
     };
 
+    /**
+     * @function playSong (private)
+     * @desc plays current Buzz object, sets playing property to true
+     * @param  {Object} song [one song in album object array]
+     */
+    var playSong = function(song) {
+      currentBuzzObject.play();
+      song.playing = true;
+    };
+
 
     /**
-    * @function setSong
-    * @desc Stops currently playing song and loads new audio file as currentBuzzObject
-    * @param {Object} song
+    * @function setSong (private)
+    * @desc Stops currently playing song, re-inits playing status, & loads
+    * newly selected song so it can be played.
+    * @param {Object} song [one song in album object array]
     */
     var setSong = function(song) {
       if ( currentBuzzObject ) {
