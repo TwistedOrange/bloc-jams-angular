@@ -1,39 +1,48 @@
 (function() {
   function SongPlayer() {
-    var currentSong = null;
+    var currentSong = null;         // obj or variable?
     var currentBuzzObject = null;
 
     var play = function(song) {
       // test if a selected song is the one now playing
       if ( currentSong !== song ) {
-        // 1. Stop the currently playing song, if there is one
-        // 2. Set a new Buzz sound object
-        // 3. Set the newly chosen song object as the currentSong
-        // 4. Play the new Buzz sound object
-
-        // user chose diff song, stop this one from playing
-        if ( currentBuzzObject ) {
-          currentBuzzObject.stop();
-        }
+          setSong(song);
+          currentBuzzObject.play();
+          song.playing = true;
       } else if ( currentSong === song ) {
-        // yes, selected song is chosen, it must be paused, so play it
+        console.log('same song');
+        // yes, selected song is chosen, if it's paused, play it
         if ( currentBuzzObject.isPaused() ) {
           currentBuzzObject.play();
         }
+      }
+    };
+
+    var pause = function(song) {
+      currentBuzzObject.pause();
+      song.playing = false;
+    };
+
+    var setSong = function(song) {
+      if ( currentBuzzObject ) {
+        currentBuzzObject.stop();
+        currentSong.playing = null;
       }
 
       currentBuzzObject = new buzz.sound(song.audioUrl, {
         formats: ['mp3'],
         preload: true
       });
-console.log('in SongPlayer constructor, before play()');
-      currentSong = song;   // switch songs
-      currentBuzzObject.play();
+
+      currentSong = song;
     };
+
 
     // expose methods and properties
     var SongPlayer_API = {
-      play: play
+      play: play,
+      pause: pause,
+      setSong: setSong
     };
 
     return SongPlayer_API;
