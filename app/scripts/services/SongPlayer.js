@@ -7,14 +7,15 @@
 
     /**
      * @desc Holds status of current song (null, paused, playing, hovered)
-     * @type {Object}
+     * @type {Object} - Public
      */
     var currentSong = null;
 
     /**
-     * @desc Buzz object audio file
-     * @type {Object}
-     */var currentBuzzObject = null;
+     * @desc Buzz object audio file for current song
+     * @type {Object} - Private
+     */
+     var currentBuzzObject = null;
 
     /**
      * @function play (public)
@@ -23,6 +24,10 @@
      * @param  {Object} song [one song in array of album object]
      */
     var play = function(song) {
+      // option 1 used when call from Album's song rows,
+      // option 2 used when call from player bar
+      song = song || currentSong;
+
       // test if a selected song is the one now playing
       if ( currentSong !== song ) {
           setSong(song);
@@ -30,7 +35,7 @@
       } else if ( currentSong === song ) {
         // yes, selected song is chosen, if it's paused, play it
         if ( currentBuzzObject.isPaused() ) {
-          currentBuzzObject.play();
+          playSong(song);
         }
       }
     };
@@ -42,6 +47,10 @@
      * @param  {Object} song [one song in album object array]
      */
     var pause = function(song) {
+    // SongPlayer.pause = function(song) {
+      // option 1 used when call from Album's song rows,
+      // option 2 used when call from player bar
+      song = song || currentSong;
       currentBuzzObject.pause();
       song.playing = false;
     };
@@ -77,11 +86,11 @@
       currentSong = song;
     };
 
-
     // expose methods and properties
     var SongPlayer_API = {
       play: play,
-      pause: pause
+      pause: pause,
+      currentSong: currentSong
     };
 
     return SongPlayer_API;
