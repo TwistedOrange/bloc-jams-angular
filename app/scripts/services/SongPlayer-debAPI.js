@@ -4,14 +4,12 @@
    * @constructor
    */
   function SongPlayer() {
-    var SongPlayer_API = {};
 
     /**
      * @desc Holds status of current song (null, paused, playing, hovered)
      * @type {Object} - Public
      */
-    // var currentSong = null;
-    SongPlayer_API.currentSong = null;
+     var currentSong = null;
 
     /**
      * @desc Buzz object audio file for current song
@@ -25,16 +23,16 @@
      * impacts how it's displayed to the user
      * @param  {Object} song [one song in array of album object]
      */
-     SongPlayer_API.play = function(song) {
+    var play = function(song) {
       // option 1 used when call from Album's song rows,
       // option 2 used when call from player bar
-      song = song || SongPlayer_API.currentSong;
+      song = song || currentSong;
 
       // test if a selected song is the one now playing
-      if ( SongPlayer_API.currentSong !== song ) {
+      if ( currentSong !== song ) {
           setSong(song);
           playSong(song);
-      } else if ( SongPlayer_API.currentSong === song ) {
+      } else if ( currentSong === song ) {
         // yes, selected song is chosen, if it's paused, play it
         if ( currentBuzzObject.isPaused() ) {
           playSong(song);
@@ -48,10 +46,10 @@
      * impacts how it's displayed to the user
      * @param  {Object} song [one song in album object array]
      */
-    SongPlayer_API.pause = function(song) {
+    var pause = function(song) {
       // option 1 used when call from Album's song rows,
       // option 2 used when call from player bar
-      song = song || SongPlayer_API.currentSong;
+      song = song || currentSong;
       currentBuzzObject.pause();
       song.playing = false;
     };
@@ -76,7 +74,7 @@
     var setSong = function(song) {
       if ( currentBuzzObject ) {
         currentBuzzObject.stop();
-        SongPlayer_API.currentSong.playing = null;
+        currentSong.playing = null;
       }
 
       currentBuzzObject = new buzz.sound(song.audioUrl, {
@@ -84,10 +82,16 @@
         preload: true
       });
 
-      SongPlayer_API.currentSong = song;
+      currentSong = song;
     };
 
     // expose methods and properties
+    var SongPlayer_API= {
+      play: play,
+      pause: pause,
+      currentSong: currentSong
+    };
+
     return SongPlayer_API;
   }
 
