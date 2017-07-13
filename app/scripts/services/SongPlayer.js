@@ -75,31 +75,79 @@
 
     /**
      * @function previous() - Public
-     * @desc Starts playing song located previous to currently active song
+     * @desc Starts playing song located previous to currently active song. Wraps to last song in album if on first song
      * @param {Object} song [one song in album object array]
      */
     SongPlayer_API.previous = function(song) {
-      var song;
       var currentSongIndex = getSongIndex(SongPlayer_API.currentSong);
       currentSongIndex--;
 
-      if ( currentSongIndex < 0) {
-        // currentBuzzObject.stop();
-        // SongPlayer_API.currentSong.playing = null;
-
-        // modified from Bloc.
-        // at first song, wrap to last song
+      if ( currentSongIndex < 0 ) {
         currentSongIndex = currentAlbum.songs.length - 1;
-        // song = currentAlbum.songs[currentSongIndex];
-      } else {
-
       }
-
-      song = currentAlbum.songs[currentSongIndex];
+      // play song previous in list to last selected song
+      var song = currentAlbum.songs[currentSongIndex];
       setSong(song);
       playSong(song);
     };
 
+
+    /**
+     * @function previous_bloc() - Public ---- BLOC version
+     * @desc Starts playing song located previous to currently active song. Does not wrap to last song if at first song.
+     * @param {Object} song [one song in album object array]
+     */
+    SongPlayer_API.previous_bloc = function(song) {
+      var currentSongIndex = getSongIndex(SongPlayer_API.currentSong);
+      currentSongIndex--;
+
+      if ( currentSongIndex < 0) {
+        stopSong();
+      } else {
+        var song = currentAlbum.songs[currentSongIndex];
+        setSong(song);
+        playSong(song);
+      }
+    };
+
+    /**
+     * @function next() - Public
+     * @desc Starts playing song located after currently active song,
+     * if at last song, wraps to first song in album
+     * @param {Object} song [one song in album object array]
+     */
+    SongPlayer_API.next = function(song) {
+      var currentSongIndex = getSongIndex(SongPlayer_API.currentSong);
+      currentSongIndex++;
+
+      if ( currentSongIndex >= currentAlbum.songs.length) {
+        // at last song, wrap to first song
+        currentSongIndex = 0;
+      }
+      // play song previous in list to active selected song
+      var song = currentAlbum.songs[currentSongIndex];
+      setSong(song);
+      playSong(song);
+    };
+
+
+    /**
+     * @function next_bloc() - Public ---- BLOC version
+     * @desc Starts playing song located after currently active song
+     * @param {Object} song [one song in album object array]
+     */
+    SongPlayer_API.next_bloc = function(song) {
+      var currentSongIndex = getSongIndex(SongPlayer_API.currentSong);
+      currentSongIndex++;
+
+      if ( currentSongIndex >= currentAlbum.songs.length) {
+        stopSong();
+      } else {
+        var song = currentAlbum.songs[currentSongIndex];
+        setSong(song);
+        playSong(song);
+      }
+    };
 
     /**
      * @function playSong() - Private
@@ -132,7 +180,18 @@
       SongPlayer_API.currentSong = song;
     };
 
-    // expose methods and properties
+    /**
+     * @function stopSong() - Private
+     * @desc Stops active song from playing, and resets playing
+     * status to null (no songs playing)
+     * @param {Object} song [one song in album object array]
+     */
+    var stopSong = function(song) {
+      currentBuzzObject.stop()
+      SongPlayer_API.currentSong.playing = null;
+    };
+
+    // expose public methods and properties
     return SongPlayer_API;
   }
 
