@@ -3,15 +3,23 @@
    * SongPlayer service manages playing, pausing a song, and tracks its state
    * @constructor
    */
-  function SongPlayer() {
+  function SongPlayer(Fixtures) {
     var SongPlayer_API = {};
 
+    // make album visible to player bar
+    var currentAlbum = Fixtures.getAlbum();
+
+
     /**
-     * @desc Holds status of current song (null, paused, playing, hovered)
-     * @type {Object} - Public
+     * @function getSongIndex() - Private
+     * @desc - Return position of currently active song in album/song object.
+     * Player bar only needs to know one song, not all songs.
+     * @param {Object} song - currently active song
      */
-    // var currentSong = null;
-    SongPlayer_API.currentSong = null;
+    var getSongIndex = function(song ) {
+      return currentAlbum.songs.indexOf(song);
+    };
+
 
     /**
      * @desc Buzz object audio file for current song
@@ -19,11 +27,19 @@
      */
      var currentBuzzObject = null;
 
+     /**
+      * @desc Holds status of current song (null, paused, playing, hovered)
+      * @type {Object} - Public
+      */
+     // var currentSong = null;
+     SongPlayer_API.currentSong = null;
+
+
     /**
-     * @function play (public)
-     * @desc Plays selected song, and set its playing state to false which
+     * @function play() - Public
+     * @desc Plays selected song, and set its playing state which
      * impacts how it's displayed to the user
-     * @param  {Object} song [one song in array of album object]
+     * @param  {Object} song - one song in array of album object
      */
      SongPlayer_API.play = function(song) {
       // option 1 used when call from Album's song rows,
@@ -43,7 +59,7 @@
     };
 
     /**
-     * @function pause (public)
+     * @function pause() - Public
      * @desc Pauses current song, and set its playing state to false which
      * impacts how it's displayed to the user
      * @param  {Object} song [one song in album object array]
@@ -56,8 +72,37 @@
       song.playing = false;
     };
 
+
     /**
-     * @function playSong (private)
+     * @function previous() - Public
+     * @desc Starts playing song located previous to currently active song
+     * @param {Object} song [one song in album object array]
+     */
+    SongPlayer_API.previous = function(song) {
+      var song;
+      var currentSongIndex = getSongIndex(SongPlayer_API.currentSong);
+      currentSongIndex--;
+
+      if ( currentSongIndex < 0) {
+        // currentBuzzObject.stop();
+        // SongPlayer_API.currentSong.playing = null;
+
+        // modified from Bloc.
+        // at first song, wrap to last song
+        currentSongIndex = currentAlbum.songs.length - 1;
+        // song = currentAlbum.songs[currentSongIndex];
+      } else {
+
+      }
+
+      song = currentAlbum.songs[currentSongIndex];
+      setSong(song);
+      playSong(song);
+    };
+
+
+    /**
+     * @function playSong() - Private
      * @desc plays current Buzz object, sets playing property to true
      * @param  {Object} song [one song in album object array]
      */
@@ -68,7 +113,7 @@
 
 
     /**
-    * @function setSong (private)
+    * @function setSong() - Private
     * @desc Stops currently playing song, re-inits playing status, & loads
     * newly selected song so it can be played.
     * @param {Object} song [one song in album object array]
@@ -93,5 +138,5 @@
 
    angular
      .module('blocJams')
-     .factory('SongPlayer', SongPlayer);
+     .factory('SongPlayer', ['Fixtures', SongPlayer] );
  })();
