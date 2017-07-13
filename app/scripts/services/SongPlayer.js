@@ -4,12 +4,14 @@
    * @constructor
    */
   function SongPlayer() {
+    var SongPlayer = {};
 
     /**
      * @desc Holds status of current song (null, paused, playing, hovered)
      * @type {Object} - Public
      */
-    var currentSong = null;
+    // var currentSong = null;
+    SongPlayer.currentSong = null;
 
     /**
      * @desc Buzz object audio file for current song
@@ -23,16 +25,17 @@
      * impacts how it's displayed to the user
      * @param  {Object} song [one song in array of album object]
      */
-    var play = function(song) {
+    // var play = function(song) {
+    SongPlayer.play = function(song) {
       // option 1 used when call from Album's song rows,
       // option 2 used when call from player bar
-      song = song || currentSong;
+      song = song || SongPlayer.currentSong;
 
       // test if a selected song is the one now playing
-      if ( currentSong !== song ) {
+      if ( SongPlayer.currentSong !== song ) {
           setSong(song);
           playSong(song);
-      } else if ( currentSong === song ) {
+      } else if ( SongPlayer.currentSong === song ) {
         // yes, selected song is chosen, if it's paused, play it
         if ( currentBuzzObject.isPaused() ) {
           playSong(song);
@@ -46,7 +49,8 @@
      * impacts how it's displayed to the user
      * @param  {Object} song [one song in album object array]
      */
-    var pause = function(song) {
+    // var pause = function(song) {
+    SongPlayer.pause = function(song) {
     // SongPlayer.pause = function(song) {
       // option 1 used when call from Album's song rows,
       // option 2 used when call from player bar
@@ -75,7 +79,7 @@
     var setSong = function(song) {
       if ( currentBuzzObject ) {
         currentBuzzObject.stop();
-        currentSong.playing = null;
+        SongPlayer.currentSong.playing = null;
       }
 
       currentBuzzObject = new buzz.sound(song.audioUrl, {
@@ -83,17 +87,18 @@
         preload: true
       });
 
-      currentSong = song;
+      SongPlayer.currentSong = song;
     };
 
     // expose methods and properties
-    var SongPlayer_API = {
-      play: play,
-      pause: pause,
-      currentSong: currentSong
-    };
-
-    return SongPlayer_API;
+    // var SongPlayer_API = {
+    //   play: play,
+    //   pause: pause,
+    //   currentSong: currentSong
+    // };
+    //
+    // return SongPlayer_API;
+    return SongPlayer;
   }
 
    angular
