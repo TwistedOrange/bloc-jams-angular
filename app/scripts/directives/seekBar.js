@@ -45,6 +45,7 @@
 
         var seekBar = $(element);
 
+        // calculates % based on value and max value of a seek bar
         var percentString = function() {
           var value = scope.value;
           var max = scope.max;
@@ -52,13 +53,10 @@
           return percent + "%";
         };
 
-        // calculates % based on value and max value of a seek bar
-        var percentString = function () {
-          var value = scope.value;
-          var max = scope.max;
-          var percent = value / max * 100;
-          return percent + "%";
+        var updatePosition = function() {
+
         };
+
 
         // @function fillStyle() is now visible since added to 'scope'
         scope.fillStyle = function() {
@@ -71,28 +69,34 @@
           scope.value = percent * scope.max;
         };
 
+        scope.thumbStyle = function() {
+          // formatted thumb bar width to show adjusted volume
+          //return { width: percentString() };
+        };
+
+
         /**
          * @function trackThumb - Public
          * @desc Similar to scope.onClickSeekBar, but uses $apply to constantly apply the change in value of  scope.value as the user drags the seek bar thumb.
          */
         scope.trackThumb = function() {
           $document.bind('mousemove.thumb', function(event) {
-          var percent = calculatePercent(seekBar, event);
-            scope.$apply(function() {
-            scope.value = percent * scope.max;
+            var percent = calculatePercent(seekBar, event);
+              scope.$apply(function() {
+              scope.value = percent * scope.max;
+            });
           });
-        });
 
-        $document.bind('mouseup.thumb', function() {
-          $document.unbind('mousemove.thumb');
-          $document.unbind('mouseup.thumb');
-        });
- };
-      }
+          $document.bind('mouseup.thumb', function() {
+            $document.unbind('mousemove.thumb');
+            $document.unbind('mouseup.thumb');
+          });
+        };
+      } // end link attribute of returned object
     };
   }
 
-  // With Angular, $document must be injected as a dependency for us to //  use it. Added as a dependency.
+  // With Angular, $document must be injected as a dependency to use it
   angular
     .module('blocJams')
     .directive('seekBar', ['$document', seekBar ] );
