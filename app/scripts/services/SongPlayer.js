@@ -33,17 +33,11 @@
      SongPlayer_API.currentSong = null;
 
      /**
-     * @desc Current playback time (in seconds) of currently playing song
-     * @type {Number}
-     */
-     SongPlayer_API.currentTime = null;
-
-     /**
      * @function setCurrentTime() - Public
-     * @desc Set current time (in seconds) of currently playing song
-     * @param {Number} time
+     * @desc Set current time of currently playing song
+     * @param {Number} time in seconds
      */
-      SongPlayer.setCurrentTime = function(time) {
+      SongPlayer_API.setCurrentTime = function(time) {
         if (currentBuzzObject) {
           currentBuzzObject.setTime(time);
         }
@@ -195,7 +189,7 @@
       //   to BuzzObject's timeupdate event.
       currentBuzzObject.bind('timeupdate', function() {
         $rootScope.$apply(function() {
-          SongPlayer.currentTime = currentBuzzObject.getTime();
+          SongPlayer_API.currentTime = currentBuzzObject.getTime();
         });
       });
 

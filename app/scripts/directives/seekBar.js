@@ -5,13 +5,11 @@
  * -- 'E' element,
  * -- 'A' attribute,
  * -- 'C' class,
- * -- 'M' comment).
+ * -- 'M' comment
  * @return {object}
- * Angular will look for directive 'seekBar' in HTML and call this
- * directive to replace (restrict=E) the HTML between the tags
- * with the HTML in the referenced template.
+ * Angular will look for directive 'seekBar' in HTML and call this directive to
+ * replace (restrict=E) the HTML between the tags with HTML in referenced template.
  */
-
 (function() {
   function seekBar($document) {
     // similar to updateSeekBarPercentage() non-AngJS version
@@ -36,9 +34,9 @@
       templateUrl: '/templates/directives/seek_bar.html',
       replace: true,
       restrict: 'E',
-      scope: {
-        onChange: '&'   // ensure directive evaluates the attrib
-      }, // 'isolated scope' new scope for directive
+      scope: {          // 'isolated scope' just for this directive
+        onChange: '&'   // tell directive to evaluate the attrib
+      },
       link: function(scope, element, attributes) {
         // need posn of thumb and width of seek bar playback to determine
         //    how much of song is remaining to be played.
@@ -81,7 +79,6 @@
           notifyOnChange(scope.value);
         };
 
-        // assignment
         scope.thumbStyle = function() {
           // reformat thumb portion of fill bar to show adjusted position
           return { left: percentString() };

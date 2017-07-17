@@ -20,28 +20,23 @@
       <span class="ion-skip-forward"></span>
     </a>
     </div>
+
     <div class="control-group currently-playing">
-      <!-- {{ playerBar.songPlayer }} -->
       <h2 class="song-name">{{ playerBar.songPlayer.currentSong.title }}</h2>
       <h2 class="artist-song-mobile"></h2>
       <h3 class="artist-name">{{ album.albumData.artist }}</h3>
-    <div class="seek-control">
+      <div class="seek-control">
+        <seek-bar value="{{ playerBar.songPlayer.currentTime }}"
+        max="{{ playerBar.songPlayer.currentSong.duration }}" on-change="playerBar.songPlayer.setCurrentTime(value)">
+        </seek-bar>
 
-    <!-- insert custom directive -->
-    <seek-bar value="{{ playerBar.songPlayer.currentTime }}"
-    max="{{ playerBar.songPlayer.currentSong.duration }}"
-    on-change="playerBar.songPlayer.setCurrentTime(value)"></seek-bar>
+        <div class="current-time"></div>
+        <div class="total-time">{{ playerBar.songPlayer.currentSong.duration }}</div>
+      </div>
+    </div>
 
-    <div class="current-time"></div>
-    <div class="total-time">{{ playerBar.songPlayer.currentSong.duration }}</div>
-    </div>
-    </div>
     <div class="control-group volume">
       <span class="icon ion-volume-high"></span>
-
-    <!-- insert custom directive -->
-    <seek-bar></seek-bar>
-
     </div>
   </div>
  </section>
