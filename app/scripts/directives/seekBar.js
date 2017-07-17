@@ -35,16 +35,26 @@
     return {
       templateUrl: '/templates/directives/seek_bar.html',
       replace: true,
-      restrict: 'EA',   // added 'A' attribute for thumb
-      scope: { }, // 'isolated scope' new scope for directive
+      restrict: 'E',
+      scope: {
+        onChange: '&'   // ensure directive evaluates the attrib
+      }, // 'isolated scope' new scope for directive
       link: function(scope, element, attributes) {
         // need posn of thumb and width of seek bar playback to determine
         //    how much of song is remaining to be played.
         scope.value = 0;
         scope.max = 100;
-        scope.vol_start = 38;   // initial postion for vol control thumb
 
         var seekBar = $(element);
+
+        // use $observe method to monitor changes in an attrib
+        attributes.$observe('value', function(newValue) {
+          scope.value = newValue;
+        });
+
+        attributes.$observe('max', function(newValue) {
+          scope.max = newValue;
+        });
 
         // calculates % based on value and max value of a seek bar
         var percentString = function() {
@@ -66,6 +76,9 @@
           var percent = calculatePercent(seekBar, event);
 
           scope.value = percent * scope.max;
+
+          // send updated scope value to func updated by onChange (in return object as propert of scope object)
+          notifyOnChange(scope.value);
         };
 
         // assignment
@@ -84,6 +97,9 @@
             var percent = calculatePercent(seekBar, event);
               scope.$apply(function() {
                 scope.value = percent * scope.max;
+
+                // send updated scope value to func updated by onChange (in return object as propert of scope object)
+                notifyOnChange(scope.value);
               });
             });
 
@@ -91,6 +107,12 @@
             $document.unbind('mousemove.thumb');
             $document.unbind('mouseup.thumb');
           });
+        };
+
+        var notifyOnChange = function(newValue) {
+          if (typeof scope.onChange === 'function') {
+            scope.onChange({value: newValue});
+          }
         };
       } // end link attribute of returned object
     };

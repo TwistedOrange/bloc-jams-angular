@@ -3,12 +3,11 @@
    * SongPlayer service manages playing, pausing a song, and tracks its state
    * @constructor
    */
-  function SongPlayer(Fixtures) {
+  function SongPlayer($rootScope, Fixtures) {
     var SongPlayer_API = {};
 
     // make album visible to player bar
     var currentAlbum = Fixtures.getAlbum();
-
 
     /**
      * @function getSongIndex() - Private
@@ -31,9 +30,24 @@
       * @desc Holds status of current song (null, paused, playing, hovered)
       * @type {Object} - Public
       */
-     // var currentSong = null;
      SongPlayer_API.currentSong = null;
 
+     /**
+     * @desc Current playback time (in seconds) of currently playing song
+     * @type {Number}
+     */
+     SongPlayer_API.currentTime = null;
+
+     /**
+     * @function setCurrentTime() - Public
+     * @desc Set current time (in seconds) of currently playing song
+     * @param {Number} time
+     */
+      SongPlayer.setCurrentTime = function(time) {
+        if (currentBuzzObject) {
+          currentBuzzObject.setTime(time);
+        }
+      };
 
     /**
      * @function play() - Public
@@ -86,7 +100,7 @@
         currentSongIndex = currentAlbum.songs.length - 1;
       }
       // play song previous in list to last selected song
-      var song = currentAlbum.songs[currentSongIndex];
+      song = currentAlbum.songs[currentSongIndex];
       setSong(song);
       playSong(song);
     };
@@ -104,7 +118,7 @@
       if ( currentSongIndex < 0) {
         stopSong();
       } else {
-        var song = currentAlbum.songs[currentSongIndex];
+        song = currentAlbum.songs[currentSongIndex];
         setSong(song);
         playSong(song);
       }
@@ -125,7 +139,7 @@
         currentSongIndex = 0;
       }
       // play song previous in list to active selected song
-      var song = currentAlbum.songs[currentSongIndex];
+      song = currentAlbum.songs[currentSongIndex];
       setSong(song);
       playSong(song);
     };
@@ -143,7 +157,7 @@
       if ( currentSongIndex >= currentAlbum.songs.length) {
         stopSong();
       } else {
-        var song = currentAlbum.songs[currentSongIndex];
+        song = currentAlbum.songs[currentSongIndex];
         setSong(song);
         playSong(song);
       }
@@ -177,6 +191,14 @@
         preload: true
       });
 
+      // create custom event listener all parts of App can see bound
+      //   to BuzzObject's timeupdate event.
+      currentBuzzObject.bind('timeupdate', function() {
+        $rootScope.$apply(function() {
+          SongPlayer.currentTime = currentBuzzObject.getTime();
+        });
+      });
+
       SongPlayer_API.currentSong = song;
     };
 
@@ -187,7 +209,7 @@
      * @param {Object} song [one song in album object array]
      */
     var stopSong = function(song) {
-      currentBuzzObject.stop()
+      currentBuzzObject.stop();
       SongPlayer_API.currentSong.playing = null;
     };
 
@@ -197,5 +219,5 @@
 
    angular
      .module('blocJams')
-     .factory('SongPlayer', ['Fixtures', SongPlayer] );
+     .factory('SongPlayer', ['$rootScope','Fixtures', SongPlayer] );
  })();
