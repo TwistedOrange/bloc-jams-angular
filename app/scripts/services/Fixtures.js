@@ -25,12 +25,12 @@
       albumArtUrl: '/assets/images/album_covers/70s-cover.jpg',
       songs: [
         { title: 'Green Acres', duration: 63.56, audioUrl: '/assets/music/grnacres' },
-        { title: 'Taxi', duration: 55.55, audioUrl: '/assets/music/taxi' },
+        { title: 'Taxi', duration: 63.32, audioUrl: '/assets/music/taxi' },
         { title: 'Cheers', duration: 62.56, audioUrl: '/assets/music/cheers' },
         { title: "Gilligan's Island", duration: 90.91, audioUrl: '/assets/music/gilligan' },
-        { title: 'Batman', duration: 55.55, audioUrl: '/assets/music/batman' },
-        { title: 'Flintstones', duration: 55.55, audioUrl: '/assets/music/flintstones' },
-        //{ title: 'I Dream of Jeannie', duration: 55.55, audioUrl: '/assets/music/jeannie' }
+        { title: 'Batman', duration: 43.27, audioUrl: '/assets/music/batman' },
+        { title: 'Flintstones', duration: 82.86, audioUrl: '/assets/music/flintstones' },
+        //{ title: 'I Dream of Jeannie', duration: 46.79, audioUrl: '/assets/music/jeannie' }
       ]
     };
 
