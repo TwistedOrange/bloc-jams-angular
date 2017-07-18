@@ -32,16 +32,28 @@
       */
      SongPlayer_API.currentSong = null;
 
-     /**
-     * @function setCurrentTime() - Public
-     * @desc Set current time of currently playing song
-     * @param {Number} time in seconds
-     */
-      SongPlayer_API.setCurrentTime = function(time) {
-        if (currentBuzzObject) {
-          currentBuzzObject.setTime(time);
-        }
-      };
+    /**
+    * @function setCurrentTime() - Public
+    * @desc Set current time of currently playing song
+    * @param {Number} time in seconds
+    */
+    SongPlayer_API.setCurrentTime = function(time) {
+      if (currentBuzzObject) {
+      currentBuzzObject.setTime(time);
+      }
+    };
+
+    /**
+    * @function setVolume() - Public
+    * @desc Set volume according to seek bar adjustment
+    * @param {Number} volume level (0-100)
+    */
+    SongPlayer_API.setVolume = function(vol) {
+      console.log('vol = ', vol);
+      if (currentBuzzObject) {
+        currentBuzzObject.setVolume(vol);
+      }
+    };
 
     /**
      * @function play() - Public
