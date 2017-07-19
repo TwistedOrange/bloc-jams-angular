@@ -39,10 +39,9 @@
     <div class="control-group volume">
       <span class="icon ion-volume-high"></span>
       <!-- insert custom directive -->
-      <seek-bar volume = {{ playerBar.songPlayer.setVolume }}
-      on-change="playerBar.songPlayer.setVolume">
+      <seek-bar volume ="{{ playerBar.songPlayer.getVolume }}"
+      on-change="playerBar.songPlayer.setVolume(volume)">
       </seek-bar>
-
     </div>
   </div>
  </section>

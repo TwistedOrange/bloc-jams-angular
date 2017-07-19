@@ -32,12 +32,16 @@
       */
      SongPlayer_API.currentSong = null;
 
+     SongPlayer_API.volume = 45;
+
+
     /**
     * @function setCurrentTime() - Public
     * @desc Set current time of currently playing song
     * @param {Number} time in seconds
     */
     SongPlayer_API.setCurrentTime = function(time) {
+      console.log('SongPlayer_API.setCurrentTime =', time);
       if (currentBuzzObject) {
       currentBuzzObject.setTime(time);
       }
@@ -49,9 +53,22 @@
     * @param {Number} volume level (0-100)
     */
     SongPlayer_API.setVolume = function(vol) {
-      console.log('vol = ', vol);
+      console.log('SongPlayer_API.setVolume =', vol);
       if (currentBuzzObject) {
         currentBuzzObject.setVolume(vol);
+      }
+    };
+
+
+    /**
+    * @function getVolume() - Public
+    * @desc Get volume of active song
+    * @return {Number} volume level (0-100)
+    */
+    SongPlayer_API.getVolume = function() {
+      if (currentBuzzObject) {
+        SongPlayer_API.volume = currentBuzzObject.getVolume();
+        console.log('SongPlayer_API.volume = ', SongPlayer_API.volume);
       }
     };
 
@@ -204,6 +221,16 @@
           SongPlayer_API.currentTime = currentBuzzObject.getTime();
         });
       });
+
+      // create custom event listener all parts of App can see bound
+      //   to BuzzObject's volumechange event.
+      currentBuzzObject.bind('volumechange', function() {
+        $rootScope.$apply(function() {
+          // SongPlayer_API.volume = currentBuzzObject.getVolume();
+          currentBuzzObject.setVolume(SongPlayer_API.volume);
+        });
+      });
+
 
       SongPlayer_API.currentSong = song;
     };
