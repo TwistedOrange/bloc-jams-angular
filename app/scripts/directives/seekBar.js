@@ -42,7 +42,7 @@
         //    how much of song is remaining to be played.
         scope.value = 0;
         scope.max = 100;
-        scope.volume = 45;      // default setting
+        //scope.volume = 45;      // default setting
 
         var seekBar = $(element);
 
@@ -55,10 +55,10 @@
           scope.max = newValue;
         });
 
-        attributes.$observe('volume', function(newValue) {
-          console.log('vol= ', newValue);
-          scope.volume = newValue;
-        });
+        // attributes.$observe('volume', function(newValue) {
+        //   console.log('vol= ', newValue);
+        //   scope.volume = newValue;
+        // });
 
         // calculates % based on value and max value of a seek bar
         var percentString = function() {

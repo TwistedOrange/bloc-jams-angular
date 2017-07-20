@@ -55,22 +55,23 @@
     SongPlayer_API.setVolume = function(vol) {
       console.log('SongPlayer_API.setVolume =', vol);
       if (currentBuzzObject) {
+        SongPlayer_API.volume = vol;
         currentBuzzObject.setVolume(vol);
       }
     };
 
 
-    /**
-    * @function getVolume() - Public
-    * @desc Get volume of active song
-    * @return {Number} volume level (0-100)
-    */
-    SongPlayer_API.getVolume = function() {
-      if (currentBuzzObject) {
-        SongPlayer_API.volume = currentBuzzObject.getVolume();
-        console.log('SongPlayer_API.volume = ', SongPlayer_API.volume);
-      }
-    };
+    // /**
+    // * @function getVolume() - Public
+    // * @desc Get volume of active song
+    // * @return {Number} volume level (0-100)
+    // */
+    // SongPlayer_API.getVolume = function() {
+    //   if (currentBuzzObject) {
+    //     SongPlayer_API.volume = currentBuzzObject.getVolume();
+    //     console.log('SongPlayer_API.volume = ', SongPlayer_API.volume);
+    //   }
+    // };
 
     /**
      * @function play() - Public
@@ -222,14 +223,14 @@
         });
       });
 
-      // create custom event listener all parts of App can see bound
-      //   to BuzzObject's volumechange event.
-      currentBuzzObject.bind('volumechange', function() {
-        $rootScope.$apply(function() {
-          // SongPlayer_API.volume = currentBuzzObject.getVolume();
-          currentBuzzObject.setVolume(SongPlayer_API.volume);
-        });
-      });
+      // // create custom event listener all parts of App can see bound
+      // //   to BuzzObject's volumechange event.
+      // currentBuzzObject.bind('volumechange', function() {
+      //   $rootScope.$apply(function() {
+      //     // SongPlayer_API.volume = currentBuzzObject.getVolume();
+      //     currentBuzzObject.setVolume(SongPlayer_API.volume);
+      //   });
+      // });
 
 
       SongPlayer_API.currentSong = song;
