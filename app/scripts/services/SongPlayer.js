@@ -32,7 +32,7 @@
       */
      SongPlayer_API.currentSong = null;
 
-     SongPlayer_API.volume = null;
+     SongPlayer_API.volume = 45;      // initial value, same as CSS
 
 
     /**
