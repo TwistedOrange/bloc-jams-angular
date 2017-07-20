@@ -32,7 +32,7 @@
       */
      SongPlayer_API.currentSong = null;
 
-     SongPlayer_API.volume = 45;
+     SongPlayer_API.volume = null;
 
 
     /**
@@ -41,7 +41,7 @@
     * @param {Number} time in seconds
     */
     SongPlayer_API.setCurrentTime = function(time) {
-      console.log('SongPlayer_API.setCurrentTime =', time);
+      //console.log('SongPlayer_API.setCurrentTime =', time);
       if (currentBuzzObject) {
       currentBuzzObject.setTime(time);
       }
@@ -53,25 +53,13 @@
     * @param {Number} volume level (0-100)
     */
     SongPlayer_API.setVolume = function(vol) {
-      console.log('SongPlayer_API.setVolume =', vol);
+      //console.log('SongPlayer_API.setVolume =', vol);
       if (currentBuzzObject) {
         SongPlayer_API.volume = vol;
         currentBuzzObject.setVolume(vol);
       }
     };
 
-
-    // /**
-    // * @function getVolume() - Public
-    // * @desc Get volume of active song
-    // * @return {Number} volume level (0-100)
-    // */
-    // SongPlayer_API.getVolume = function() {
-    //   if (currentBuzzObject) {
-    //     SongPlayer_API.volume = currentBuzzObject.getVolume();
-    //     console.log('SongPlayer_API.volume = ', SongPlayer_API.volume);
-    //   }
-    // };
 
     /**
      * @function play() - Public

@@ -130,7 +130,7 @@
 
 /* added to position vol thumb at some fixed vol level */
 .player-bar .volume .thumb {
-  left: 38%;
+  left: 45%;
 }
 
 .seek-bar:hover .thumb {

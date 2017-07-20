@@ -42,7 +42,7 @@
         //    how much of song is remaining to be played.
         scope.value = 0;
         scope.max = 100;
-        //scope.volume = 45;      // default setting
+        // scope.volume = 45;      // default setting
 
         var seekBar = $(element);
 
@@ -104,7 +104,7 @@
 
         /**
          * @function trackThumb() - Public
-         * @desc Similar to scope.onClickSeekBar, but uses $apply to constantly apply the changed value as user drags seek bar thumb.
+         * @desc Similar to scope.onClickSeekBar, but uses $apply to constantly apply the changed value as user drags song time seek bar thumb.
          */
         scope.trackThumb = function() {
           $document.bind('mousemove.thumb', function(event) {
