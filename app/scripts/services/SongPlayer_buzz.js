@@ -24,7 +24,7 @@
      * @desc Buzz object audio file for current song
      * @type {Object} - Private
      */
-     var currentBuzzObject = null;
+     SongPlayer_API.currentBuzzObject = null;
 
      /**
       * @desc Holds status of current song (null, paused, playing, hovered)
@@ -43,7 +43,7 @@
     SongPlayer_API.setCurrentTime = function(time) {
       //console.log('SongPlayer_API.setCurrentTime =', time);
       if (currentBuzzObject) {
-      currentBuzzObject.setTime(time);
+      SongPlayer_API.currentBuzzObject.setTime(time);
       }
     };
 
@@ -56,7 +56,7 @@
       //console.log('SongPlayer_API.setVolume =', vol);
       if (currentBuzzObject) {
         SongPlayer_API.volume = vol;
-        currentBuzzObject.setVolume(vol);
+        SongPlayer_API.currentBuzzObject.setVolume(vol);
       }
     };
 
@@ -78,7 +78,7 @@
           playSong(song);
       } else if ( SongPlayer_API.currentSong === song ) {
         // yes, selected song is chosen, if it's paused, play it
-        if ( currentBuzzObject.isPaused() ) {
+        if ( SongPlayer_API.currentBuzzObject.isPaused() ) {
           playSong(song);
         }
       }
@@ -94,7 +94,7 @@
       // option 1 used when call from Album's song rows,
       // option 2 used when call from player bar
       song = song || SongPlayer_API.currentSong;
-      currentBuzzObject.pause();
+      SongPlayer_API.currentBuzzObject.pause();
       song.playing = false;
     };
 
@@ -181,7 +181,7 @@
      * @param  {Object} song [one song in album object array]
      */
     var playSong = function(song) {
-      currentBuzzObject.play();
+      SongPlayer_API.currentBuzzObject.play();
       song.playing = true;
     };
 
@@ -193,21 +193,21 @@
     * @param {Object} song [one song in album object array]
     */
     var setSong = function(song) {
-      if ( currentBuzzObject ) {
-        currentBuzzObject.stop();
+      if ( SongPlayer_API.currentBuzzObject ) {
+        SongPlayer_API.currentBuzzObject.stop();
         SongPlayer_API.currentSong.playing = null;
       }
 
-      currentBuzzObject = new buzz.sound(song.audioUrl, {
+      SongPlayer_API.currentBuzzObject = new buzz.sound(song.audioUrl, {
         formats: ['mp3'],
         preload: true
       });
 
       // create custom event listener all parts of App can see bound
       //   to BuzzObject's timeupdate event.
-      currentBuzzObject.bind('timeupdate', function() {
+      SongPlayer_API.currentBuzzObject.bind('timeupdate', function() {
         $rootScope.$apply(function() {
-          SongPlayer_API.currentTime = currentBuzzObject.getTime();
+          SongPlayer_API.currentTime = SongPlayer_API.currentBuzzObject.getTime();
         });
       });
 
@@ -221,7 +221,7 @@
      * @param {Object} song [one song in album object array]
      */
     var stopSong = function(song) {
-      currentBuzzObject.stop();
+      SongPlayer_API.currentBuzzObject.stop();
       SongPlayer_API.currentSong.playing = null;
     };
 
