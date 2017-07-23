@@ -31,7 +31,6 @@
       * @type {Object} - Public
       */
      SongPlayer_API.currentSong = null;
-
      SongPlayer_API.volume = 45;      // initial value, same as CSS
 
 
@@ -154,6 +153,18 @@
       song = currentAlbum.songs[currentSongIndex];
       setSong(song);
       playSong(song);
+    };
+
+    /**
+     * @function
+     * @desc
+     */
+    SongPlayer_API.muteSong = function() {
+      // currentBuzzObject.isMuted() ? currentBuzzObject.unMute() : currentBuzzObject.mute();
+      console.log('in muteSong()');
+      if ( currentBuzzObject ) {
+        currentBuzzObject.toggleMute();
+      }
     };
 
 
