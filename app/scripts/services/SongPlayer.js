@@ -8,8 +8,6 @@
 
     // make album visible to player bar
     var currentAlbum = Fixtures.getAlbum();
-    var songGroupBuzz = null;   // list of songs for playback
-
 
     /**
      * @function getSongIndex() - Private
@@ -38,7 +36,7 @@
       */
      SongPlayer_API.currentSong = null;
      SongPlayer_API.volume = 45;      // initial value, same as CSS
-
+     SongPlayer_API.muted = false;
 
     /**
     * @function setCurrentTime() - Public
@@ -178,13 +176,16 @@
      * @desc - test how adding songs to a group can be played on their own
      */
     SongPlayer_API.updatePlayList = function() {
-        console.log('add/remove song from playlist');
+        console.log('updatePlayList() - add song to playlist');
         var toPlay1, toPlay2, toPlay3;
 
         // define the playlist
-        toPlay1 = new buzz.sound("/assets/music/grnacres"),
-        toPlay2 = new buzz.sound("/assets/music/taxi"),
-        toPlay3 = new buzz.sound("/assets/music/jeannie");
+        console.log(currentAlbum);
+        console.log('sample song=', currentAlbum.songs[0].audioUrl);
+
+        toPlay1 = new buzz.sound(currentAlbum.songs[0].audioUrl + '.mp3'),
+        toPlay2 = new buzz.sound(currentAlbum.songs[1].audioUrl + '.mp3'),
+        toPlay3 = new buzz.sound(currentAlbum.songs[2].audioUrl + '.mp3');
 
         songGroupBuzz = new buzz.group(toPlay1, toPlay2, toPlay3);
     };
@@ -195,13 +196,15 @@
      */
     SongPlayer_API.playSelectedSongs = function() {
         // buzz.all().play();
+
+        SongPlayer_API.updatePlayList();
         songGroupBuzz.loop().play();
     };
 
 
     /**
      * @function cycleSongs()
-     * @desc
+     * @desc Enables auto-play feature where at song end, next song is automatically played. User can enable/disable feature from button.
      */
     SongPlayer_API.cycleSongs = function() {
       if ( enableAutoPlay ) {
@@ -212,13 +215,13 @@
         $('button').text('Auto Play: On')
       }
 
-        //enableAutoPlay ? enableAutoPlay = false : enableAutoPlay = true;
-        console.log('new auto playback mode', enableAutoPlay);
+      //enableAutoPlay ? enableAutoPlay = false : enableAutoPlay = true;
+      console.log(' auto playback mode=', enableAutoPlay);
 
-        // var btn = document.getElementByTagName('button');
-        // btn.innerText = "on or off based on enableAutoPlay flag";
+      // this didn't work, why?
+      // var btn = document.getElementByTagName('button');
+      // btn.innerText = "on or off based on enableAutoPlay flag";
     };
-
 
 
     /**
@@ -278,24 +281,21 @@
 
       /**
        * @desc AutoPlay - as one song ends, start the next song automatically
-       // User can enable/disable using Playback button.
-       // Custom event listener to Buzz's "ended" event.
-       // http://buzz.jaysalvat.com/documentation/events/
+       * User can enable/disable using Playback button.
+       * Custom event listener to Buzz's "ended" event.
+       * http://buzz.jaysalvat.com/documentation/events/
        */
-      //
       currentBuzzObject.bind('ended', function() {
         $rootScope.$apply(function() {
           // console.log('song ended, curr song', SongPlayer_API.currentSong);
           if ( enableAutoPlay ){
             console.log('enable playback');
             SongPlayer_API.next(SongPlayer_API.currentSong);
-
           } else {
             console.log('disable playback');
           }
         });
       });
-
       SongPlayer_API.currentSong = song;
     };
 

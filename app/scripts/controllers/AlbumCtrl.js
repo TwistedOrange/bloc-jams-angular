@@ -4,6 +4,8 @@
 
     // songPlayer property holds the service making it visible
     this.songPlayer = SongPlayer;
+
+    SongPlayer.playSelectedSongs();
   }
 
   angular
