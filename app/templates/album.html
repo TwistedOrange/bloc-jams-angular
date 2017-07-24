@@ -7,6 +7,8 @@
       <h2 class="album-view-title">{{ album.albumData.title }}</h2>
       <h3 class="album-view-artist">{{ album.albumData.artist }}</h3>
       <h5 class="album-view-release-info">{{ album.albumData.year }}</h5>
+
+      <button name='btnPlayback' ng-click="album.songPlayer.cycleSongs()">Auto Play: Off</button>
     </div>
   </section>
   <table class="album-view-song-list">
@@ -14,6 +16,9 @@
     <tr class="album-view-song-item" ng-mouseover="hovered = true" ng-mouseleave="hovered = false" ng-repeat="song in album.albumData.songs">
 
       <td class="song-item-number">
+        <!-- <span class="icon ion-add-circle"></span>
+        <ion-icon name="add-circle"></ion-icon> -->
+
         <span ng-show="!song.playing && !hovered">{{ $index + 1 }}</span>
 
         <a class="album-song-button" ng-show="!song.playing && hovered" ng-click="album.songPlayer.play(song)"><span class="ion-play"></span></a>
@@ -23,6 +28,10 @@
 
       <td class="song-item-title">{{ song.title }}</td>
       <td class="song-item-duration">{{ song.duration | timecode }}</td>
+      <td><a class='ion-add-circle' ng-click="album.songPlayer.updatePlayList()">
+        ( + )</a><ion-icon name="ios-add-circle"></ion-icon>
+      </td>
+
     </tr>
   </table>
 </main>

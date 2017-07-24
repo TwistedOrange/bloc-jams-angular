@@ -8,6 +8,8 @@
 
     // make album visible to player bar
     var currentAlbum = Fixtures.getAlbum();
+    var songGroupBuzz = null;   // list of songs for playback
+
 
     /**
      * @function getSongIndex() - Private
@@ -25,6 +27,10 @@
      * @type {Object} - Private
      */
      var currentBuzzObject = null;
+     var enableAutoPlay = false;
+
+     // attempting playbook by adding songs to Buzz group object
+     var songGroupBuzz = null;
 
      /**
       * @desc Holds status of current song (null, paused, playing, hovered)
@@ -156,16 +162,63 @@
     };
 
     /**
-     * @function
-     * @desc
+     * @function muteSong() - Public
+     * @desc - toggles volume of currently playing song from on/off
      */
     SongPlayer_API.muteSong = function() {
       // currentBuzzObject.isMuted() ? currentBuzzObject.unMute() : currentBuzzObject.mute();
-      console.log('in muteSong()');
+      //console.log('in muteSong()');
       if ( currentBuzzObject ) {
         currentBuzzObject.toggleMute();
       }
     };
+
+    /**
+     * @function updatePlayList()
+     * @desc - test how adding songs to a group can be played on their own
+     */
+    SongPlayer_API.updatePlayList = function() {
+        console.log('add/remove song from playlist');
+        var toPlay1, toPlay2, toPlay3;
+
+        // define the playlist
+        toPlay1 = new buzz.sound("/assets/music/grnacres"),
+        toPlay2 = new buzz.sound("/assets/music/taxi"),
+        toPlay3 = new buzz.sound("/assets/music/jeannie");
+
+        songGroupBuzz = new buzz.group(toPlay1, toPlay2, toPlay3);
+    };
+
+    /**
+     * @function - playSelectedSongs()
+     * @desc
+     */
+    SongPlayer_API.playSelectedSongs = function() {
+        // buzz.all().play();
+        songGroupBuzz.loop().play();
+    };
+
+
+    /**
+     * @function cycleSongs()
+     * @desc
+     */
+    SongPlayer_API.cycleSongs = function() {
+      if ( enableAutoPlay ) {
+        enableAutoPlay = false;
+        $('button').text('Auto Play: Off');
+      } else {
+        enableAutoPlay = true;
+        $('button').text('Auto Play: On')
+      }
+
+        //enableAutoPlay ? enableAutoPlay = false : enableAutoPlay = true;
+        console.log('new auto playback mode', enableAutoPlay);
+
+        // var btn = document.getElementByTagName('button');
+        // btn.innerText = "on or off based on enableAutoPlay flag";
+    };
+
 
 
     /**
@@ -214,11 +267,32 @@
         preload: true
       });
 
-      // create custom event listener all parts of App can see bound
-      //   to BuzzObject's timeupdate event.
+      // Track time played for current song - as time changes, callback is updated
+      // Custom event using Buzz's "timeupdate" event
+      // http://buzz.jaysalvat.com/documentation/events/
       currentBuzzObject.bind('timeupdate', function() {
         $rootScope.$apply(function() {
           SongPlayer_API.currentTime = currentBuzzObject.getTime();
+        });
+      });
+
+      /**
+       * @desc AutoPlay - as one song ends, start the next song automatically
+       // User can enable/disable using Playback button.
+       // Custom event listener to Buzz's "ended" event.
+       // http://buzz.jaysalvat.com/documentation/events/
+       */
+      //
+      currentBuzzObject.bind('ended', function() {
+        $rootScope.$apply(function() {
+          // console.log('song ended, curr song', SongPlayer_API.currentSong);
+          if ( enableAutoPlay ){
+            console.log('enable playback');
+            SongPlayer_API.next(SongPlayer_API.currentSong);
+
+          } else {
+            console.log('disable playback');
+          }
         });
       });
 
